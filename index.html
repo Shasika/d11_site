@@ -2247,7 +2247,10 @@
                         <span class="validation-message text-xs text-red-500 mt-1 hidden"></span>
                     </div>
 
-                    <!-- File Upload -->
+                    <!-- File Upload - DISABLED (Requires Web3Forms Pro Plan) -->
+                    <!--
+                    Uncomment when upgrading to Web3Forms Pro or using Netlify/Vercel Functions:
+
                     <div class="relative">
                         <label class="block text-sm font-semibold text-text-default mb-2 uppercase tracking-wider">Reference Images (Optional)</label>
                         <div class="relative border-2 border-dashed border-border-color rounded-lg p-8 text-center hover:border-c-gold transition-all duration-300 cursor-pointer" id="file-drop-zone">
@@ -2260,6 +2263,7 @@
                         </div>
                         <div id="file-list" class="mt-4 space-y-2"></div>
                     </div>
+                    -->
 
                     <!-- Auto-save Indicator -->
                     <div class="flex items-center justify-between">
@@ -3029,8 +3033,8 @@
                         projectType: projectType.value,
                         budget: document.getElementById('budget').value,
                         message: messageInput.value.trim(),
-                        timestamp: new Date().toISOString(),
-                        files: uploadedFiles.map(f => f.name)
+                        timestamp: new Date().toISOString()
+                        // files: uploadedFiles.map(f => f.name) // Disabled - requires Web3Forms Pro
                     };
 
                     // Try Netlify Function first (if available), fallback to Web3Forms
@@ -3047,30 +3051,81 @@
                         if (!response.ok) throw new Error('Netlify function not available');
                     } catch (netlifyError) {
                         // Option 2: Web3Forms (fallback - works everywhere)
+                        // TODO: Add your Web3Forms access key below
+                        const web3FormsKey = 'c5c93a0e-d4c3-4b60-8ad3-5743edd7a8ba'; // Get from https://web3forms.com
+
+                        if (web3FormsKey === 'YOUR_WEB3FORMS_KEY') {
+                            // Key not set - show helpful error
+                            throw new Error(`
+❌ Contact Form Not Configured Yet!
+
+To enable the contact form:
+1. Go to: https://web3forms.com
+2. Enter your email
+3. Get your free access key
+4. Add it to index.html line 3051
+
+OR contact us directly:
+📧 Email: info@d11architecture.lk
+📞 Phone: +94 XX XXX XXXX
+                            `.trim());
+                        }
+
                         const web3FormData = new FormData();
-                        web3FormData.append('access_key', 'YOUR_WEB3FORMS_KEY'); // Get from web3forms.com
+                        web3FormData.append('access_key', web3FormsKey);
                         web3FormData.append('name', formData.name);
                         web3FormData.append('email', formData.email);
                         web3FormData.append('phone', formData.phone);
-                        web3FormData.append('subject', `New ${formData.projectType} Project Inquiry`);
+                        web3FormData.append('from_name', 'D11 Architecture Website');
+                        web3FormData.append('replyto', formData.email);
+                        web3FormData.append('subject', `🏗️ New ${formData.projectType || 'Project'} Inquiry - D11 Architecture`);
                         web3FormData.append('message', `
-Project Type: ${formData.projectType}
-Budget: ${formData.budget}
-Phone: ${formData.phone}
+═══════════════════════════════════════
+🎯 NEW LEAD FROM D11 ARCHITECTURE WEBSITE
+═══════════════════════════════════════
 
-Message:
+👤 CONTACT INFORMATION:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Name:     ${formData.name}
+Email:    ${formData.email}
+Phone:    ${formData.phone || 'Not provided'}
+
+📋 PROJECT DETAILS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Type:     ${formData.projectType || 'Not specified'}
+Budget:   ${formData.budget || 'Not specified'}
+
+💬 CLIENT MESSAGE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${formData.message}
 
-Files: ${formData.files.join(', ') || 'None'}
+📅 SUBMITTED:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${new Date(formData.timestamp).toLocaleString('en-LK', {
+    dateStyle: 'full',
+    timeStyle: 'short'
+})}
+
+⚡ ACTION REQUIRED:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Please respond within 24 hours for best conversion rates.
+
+═══════════════════════════════════════
+D11 Architecture | Professional Drafting Services
+www.d11architecture.lk
+═══════════════════════════════════════
                         `);
 
-                        // Add uploaded files
+                        // Add uploaded files (DISABLED - requires Web3Forms Pro)
+                        // Uncomment when upgrading to Pro plan or using Netlify/Vercel Functions
+                        /*
                         const fileInput = document.getElementById('file-upload');
-                        if (fileInput.files.length > 0) {
+                        if (fileInput && fileInput.files.length > 0) {
                             for (let i = 0; i < fileInput.files.length; i++) {
                                 web3FormData.append('file', fileInput.files[i]);
                             }
                         }
+                        */
 
                         response = await fetch('https://api.web3forms.com/submit', {
                             method: 'POST',
