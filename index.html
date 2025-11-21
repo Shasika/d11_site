@@ -1787,6 +1787,107 @@
         body.theme-winter { --seasonal-accent-rgb: 59, 130, 246; }
         body.theme-holiday { --seasonal-accent-rgb: 220, 38, 38; }
 
+        /* ===== ADVANCED SEASONAL ENHANCEMENTS ===== */
+
+        /* 5. Seasonal Hero Background Overlay */
+        body.theme-spring #hero .absolute.inset-0 {
+            background: linear-gradient(135deg,
+                rgba(16, 185, 129, 0.15) 0%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(16, 185, 129, 0.1) 100%) !important;
+        }
+
+        body.theme-summer #hero .absolute.inset-0 {
+            background: linear-gradient(135deg,
+                rgba(245, 158, 11, 0.2) 0%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(245, 158, 11, 0.15) 100%) !important;
+        }
+
+        body.theme-autumn #hero .absolute.inset-0 {
+            background: linear-gradient(135deg,
+                rgba(249, 115, 22, 0.2) 0%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(139, 69, 19, 0.2) 100%) !important;
+        }
+
+        body.theme-winter #hero .absolute.inset-0 {
+            background: linear-gradient(135deg,
+                rgba(59, 130, 246, 0.15) 0%,
+                rgba(0, 0, 0, 0.45) 50%,
+                rgba(59, 130, 246, 0.1) 100%) !important;
+        }
+
+        body.theme-holiday #hero .absolute.inset-0 {
+            background: linear-gradient(135deg,
+                rgba(220, 38, 38, 0.25) 0%,
+                rgba(0, 0, 0, 0.35) 50%,
+                rgba(220, 38, 38, 0.2) 100%) !important;
+        }
+
+        /* 8. Seasonal Icon Variations */
+        body.theme-spring .service-icon svg,
+        body.theme-spring .feature-icon svg {
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));
+        }
+
+        body.theme-summer .service-icon svg,
+        body.theme-summer .feature-icon svg {
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.4));
+        }
+
+        body.theme-autumn .service-icon svg,
+        body.theme-autumn .feature-icon svg {
+            filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.3));
+        }
+
+        body.theme-winter .service-icon svg,
+        body.theme-winter .feature-icon svg {
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3));
+        }
+
+        body.theme-holiday .service-icon svg,
+        body.theme-holiday .feature-icon svg {
+            filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.4));
+            animation: holiday-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes holiday-pulse {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.4)); }
+            50% { filter: drop-shadow(0 0 15px rgba(220, 38, 38, 0.6)); }
+        }
+
+        /* 10. Seasonal Typography Weights */
+        body.theme-spring h1,
+        body.theme-spring h2,
+        body.theme-summer h1,
+        body.theme-summer h2 {
+            font-weight: 600 !important;
+            letter-spacing: 0.02em;
+        }
+
+        body.theme-autumn h1,
+        body.theme-autumn h2,
+        body.theme-winter h1,
+        body.theme-winter h2,
+        body.theme-holiday h1,
+        body.theme-holiday h2 {
+            font-weight: 700 !important;
+            letter-spacing: -0.01em;
+        }
+
+        /* Seasonal body text warmth */
+        body.theme-spring,
+        body.theme-summer {
+            --text-warmth: 1.02;
+        }
+
+        body.theme-autumn,
+        body.theme-winter,
+        body.theme-holiday {
+            --text-warmth: 0.98;
+        }
+
         /* 47. CURSOR TRAIL EFFECT */
         .cursor-trail {
             position: fixed;
@@ -4917,6 +5018,129 @@ www.d11architecture.lk
         }
 
         applySeasonalTheme();
+
+        // Advanced Seasonal Enhancements
+
+        // 7. Seasonal Stats Updates
+        function updateSeasonalStats() {
+            const month = new Date().getMonth() + 1;
+            let seasonalText = '';
+
+            if (month >= 3 && month <= 5) {
+                seasonalText = 'Spring Projects Started';
+            } else if (month >= 6 && month <= 8) {
+                seasonalText = 'Summer Builds Completed';
+            } else if (month >= 9 && month <= 11) {
+                seasonalText = 'Autumn Renovations';
+            } else {
+                seasonalText = 'Winter Plans Drafted';
+            }
+
+            // Update stats section if it exists
+            const statsLabels = document.querySelectorAll('#stats .stat-label');
+            if (statsLabels.length > 0 && statsLabels[0]) {
+                const originalText = statsLabels[0].textContent;
+                if (!originalText.includes('Spring') && !originalText.includes('Summer') &&
+                    !originalText.includes('Autumn') && !originalText.includes('Winter')) {
+                    // Store original for reference
+                    statsLabels[0].setAttribute('data-original', originalText);
+                }
+            }
+        }
+
+        // 9. Seasonal Footer Messages
+        function updateSeasonalFooter() {
+            const month = new Date().getMonth() + 1;
+            const day = new Date().getDate();
+            let message = '';
+
+            // Holiday messages (priority)
+            if (month === 12 && day >= 15 && day < 25) {
+                message = '🎄 Wishing you a Merry Christmas from all of us at D11 Architecture!';
+            } else if (month === 12 && day >= 25 && day <= 31) {
+                message = '✨ Happy Holidays! Looking forward to building dreams together in the New Year!';
+            } else if (month === 1 && day <= 7) {
+                message = '🎊 Happy New Year! Let\'s make your architectural dreams come true in ' + new Date().getFullYear() + '!';
+            }
+            // Seasonal messages
+            else if (month >= 3 && month <= 5) {
+                message = '🌸 Spring into action! Perfect season to start your dream project.';
+            } else if (month >= 6 && month <= 8) {
+                message = '☀️ Summer building season is here! Let\'s create something amazing together.';
+            } else if (month >= 9 && month <= 11) {
+                message = '🍂 Fall in love with your space. Cozy renovations for the autumn season.';
+            } else {
+                message = '❄️ Winter planning season. Perfect time to design your dream for spring construction.';
+            }
+
+            // Add message to footer if not already there
+            const footer = document.querySelector('footer');
+            if (footer) {
+                let seasonalMsg = footer.querySelector('.seasonal-message');
+                if (!seasonalMsg) {
+                    seasonalMsg = document.createElement('p');
+                    seasonalMsg.className = 'seasonal-message text-center text-c-gold font-semibold mt-4 animate-fade-in';
+                    seasonalMsg.style.fontSize = '14px';
+                    footer.insertBefore(seasonalMsg, footer.firstChild);
+                }
+                seasonalMsg.textContent = message;
+            }
+        }
+
+        // 6. Seasonal Testimonial Highlighting
+        function highlightSeasonalTestimonials() {
+            const month = new Date().getMonth() + 1;
+            const testimonials = document.querySelectorAll('.testimonial-slide, .swiper-slide');
+
+            // Define seasonal keywords to highlight
+            const seasonalKeywords = {
+                spring: ['spring', 'renovation', 'fresh', 'new', 'garden', 'outdoor'],
+                summer: ['summer', 'build', 'construction', 'bright', 'addition'],
+                autumn: ['autumn', 'fall', 'cozy', 'warm', 'interior', 'remodel'],
+                winter: ['winter', 'planning', 'design', 'blueprint', 'consultation']
+            };
+
+            let currentSeason = 'spring';
+            if (month >= 3 && month <= 5) currentSeason = 'spring';
+            else if (month >= 6 && month <= 8) currentSeason = 'summer';
+            else if (month >= 9 && month <= 11) currentSeason = 'autumn';
+            else currentSeason = 'winter';
+
+            // Add seasonal badge to relevant testimonials
+            testimonials.forEach(testimonial => {
+                const text = testimonial.textContent.toLowerCase();
+                const keywords = seasonalKeywords[currentSeason];
+                const hasSeasonalContent = keywords.some(keyword => text.includes(keyword));
+
+                if (hasSeasonalContent && !testimonial.querySelector('.seasonal-badge')) {
+                    const badge = document.createElement('span');
+                    badge.className = 'seasonal-badge';
+                    badge.textContent = '⭐ Seasonal Highlight';
+                    badge.style.cssText = `
+                        display: inline-block;
+                        background: var(--seasonal-accent);
+                        color: white;
+                        padding: 4px 12px;
+                        border-radius: 12px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        margin-left: 8px;
+                        opacity: 0.9;
+                    `;
+                    const header = testimonial.querySelector('h4, .testimonial-name, .font-bold');
+                    if (header) {
+                        header.style.display = 'inline-flex';
+                        header.style.alignItems = 'center';
+                        header.appendChild(badge);
+                    }
+                }
+            });
+        }
+
+        // Apply all seasonal enhancements
+        updateSeasonalStats();
+        updateSeasonalFooter();
+        setTimeout(highlightSeasonalTestimonials, 1000); // Delay for Swiper to load
 
         // 47. Cursor Trail Effect (Desktop only)
         if (window.innerWidth >= 1024) {
