@@ -1162,11 +1162,9 @@
             background: linear-gradient(90deg, #2a2f4f 0%, #3a3f5f 50%, #2a2f4f 100%);
             background-size: 200% 100%;
             animation: skeleton-loading 1.5s ease-in-out infinite;
-        }
-
-        img.loaded + .img-skeleton {
-            opacity: 0;
+            transition: opacity 0.15s ease-out;
             pointer-events: none;
+            z-index: 1;
         }
 
         /* 5. GLASSMORPHISM EFFECTS */
@@ -2295,7 +2293,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="residential">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop" alt="The Manhattan Penthouse">
+                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop&q=80&auto=format" alt="The Manhattan Penthouse">
                             </div>
                             <!-- Project Value Badge -->
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
@@ -2325,7 +2323,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="residential">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop" alt="VILLA S. M. - Primary Suite">
+                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop&q=80&auto=format" alt="VILLA S. M. - Primary Suite">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 190,000</span>
@@ -2353,7 +2351,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="commercial">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop" alt="Commercial Gallery Revamp">
+                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&q=80&auto=format" alt="Commercial Gallery Revamp">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 420,000</span>
@@ -4193,19 +4191,30 @@ www.d11architecture.lk
             scrollRevealObserver.observe(el);
         });
 
-        // 17. Image Loading with Skeleton
+        // 17. Image Loading with Skeleton (Optimized - Skip Portfolio)
         document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-            const skeleton = document.createElement('div');
-            skeleton.className = 'img-skeleton';
-            img.parentElement.style.position = 'relative';
-            img.parentElement.appendChild(skeleton);
+            // Skip portfolio images (they load fast without skeletons)
+            const isPortfolioImg = img.closest('.portfolio-item') || img.closest('#portfolio-grid');
 
-            img.addEventListener('load', () => {
-                img.classList.add('loaded');
-                setTimeout(() => {
-                    skeleton.remove();
-                }, 300);
-            });
+            // Only add skeleton if image hasn't loaded yet AND not in portfolio
+            if (!img.complete && !isPortfolioImg) {
+                const skeleton = document.createElement('div');
+                skeleton.className = 'img-skeleton';
+                const parent = img.parentElement;
+
+                if (parent && !parent.querySelector('.img-skeleton')) {
+                    if (getComputedStyle(parent).position === 'static') {
+                        parent.style.position = 'relative';
+                    }
+                    parent.appendChild(skeleton);
+
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                        skeleton.style.opacity = '0';
+                        setTimeout(() => skeleton.remove(), 100);
+                    }, { once: true });
+                }
+            }
         });
     </script>
 
