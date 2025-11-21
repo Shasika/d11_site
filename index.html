@@ -1085,6 +1085,21 @@
             }
         }
 
+        /* Move buttons up when sticky CTA is shown */
+        body.cta-bar-visible .whatsapp-float {
+            bottom: 240px; /* 170px + 70px for bar height */
+        }
+
+        body.cta-bar-visible #scroll-button {
+            bottom: 160px; /* 90px + 70px for bar height */
+        }
+
+        /* Add transition to buttons for smooth movement */
+        .whatsapp-float,
+        #scroll-button {
+            transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         @media (max-width: 768px) {
             .whatsapp-float {
                 width: 56px;
@@ -1103,6 +1118,13 @@
             #scroll-button {
                 right: 20px;
                 bottom: 170px;
+            }
+            /* Move buttons up when sticky CTA is shown on mobile */
+            body.cta-bar-visible .whatsapp-float {
+                bottom: 310px; /* 240px + 70px for bar height */
+            }
+            body.cta-bar-visible #scroll-button {
+                bottom: 240px; /* 170px + 70px for bar height */
             }
         }
 
@@ -3583,9 +3605,9 @@
         <svg id="scroll-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
     </button>
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
 
-    <script>
+    <script defer>
         // Performance: Wrap initialization in requestAnimationFrame for smoother loading
         window.addEventListener('DOMContentLoaded', function() {
 
@@ -3688,10 +3710,10 @@
         }, 500);
 
         // --- 1.5. Hero Parallax Effect ---
-        function heroParallax() {
-            const heroSection = document.getElementById('hero');
-            const heroBgImages = document.querySelectorAll('.hero-bg-image');
+        const heroSection = document.getElementById('hero');
+        const heroBgImages = document.querySelectorAll('.hero-bg-image');
 
+        function heroParallax() {
             if (heroSection && heroBgImages.length > 0) {
                 const scrolled = window.pageYOffset;
                 const heroHeight = heroSection.offsetHeight;
@@ -3704,9 +3726,17 @@
             }
         }
 
+        // Use requestAnimationFrame with ticking pattern
+        let heroParallaxTicking = false;
         window.addEventListener('scroll', () => {
-            requestAnimationFrame(heroParallax);
-        });
+            if (!heroParallaxTicking) {
+                requestAnimationFrame(() => {
+                    heroParallax();
+                    heroParallaxTicking = false;
+                });
+                heroParallaxTicking = true;
+            }
+        }, { passive: true });
 
         // --- 2. Theme Toggle Logic ---
         const htmlElement = document.documentElement;
@@ -3883,14 +3913,17 @@
 
         // --- 7. Header Scroll Animation Logic ---
         const mainHeader = document.getElementById('main-header');
-        
-        window.addEventListener('scroll', () => {
+
+        function updateHeaderScroll() {
             if (window.scrollY > 50) {
                 mainHeader.classList.add('header-scrolled');
             } else {
                 mainHeader.classList.remove('header-scrolled');
             }
-        });
+        }
+
+        // Using passive listener for better performance
+        window.addEventListener('scroll', updateHeaderScroll, { passive: true });
 
         // --- 8. Scroll To Top/Bottom Button Logic ---
         const scrollButton = document.getElementById('scroll-button');
@@ -3926,11 +3959,22 @@
                 if (target === 'top') {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    window.scrollTo({ top: document.body.offsetHeight, behavior: 'smooth' });
+                    window.scrollTo({ top: cachedElements.body.offsetHeight, behavior: 'smooth' });
                 }
             });
 
-            window.addEventListener('scroll', updateScrollButton);
+            // Use requestAnimationFrame for smooth updates
+            let scrollTicking = false;
+            window.addEventListener('scroll', () => {
+                if (!scrollTicking) {
+                    requestAnimationFrame(() => {
+                        updateScrollButton();
+                        scrollTicking = false;
+                    });
+                    scrollTicking = true;
+                }
+            }, { passive: true });
+
             window.addEventListener('load', updateScrollButton);
         }
 
@@ -3955,27 +3999,40 @@
         });
 
         // 2. Scroll Progress Bar
-        function updateScrollProgress() {
-            const scrollProgress = document.getElementById('scroll-progress');
-            if (!scrollProgress) return; // Add null check
+        const scrollProgress = document.getElementById('scroll-progress');
 
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        function updateScrollProgress() {
+            if (!scrollProgress) return;
+
+            const scrollTop = window.pageYOffset || cachedElements.html.scrollTop;
+            const scrollHeight = cachedElements.html.scrollHeight - cachedElements.html.clientHeight;
             const progress = (scrollTop / scrollHeight) * 100;
             scrollProgress.style.width = progress + '%';
         }
-        window.addEventListener('scroll', updateScrollProgress);
+
+        // Use requestAnimationFrame for smooth updates
+        let progressTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!progressTicking) {
+                requestAnimationFrame(() => {
+                    updateScrollProgress();
+                    progressTicking = false;
+                });
+                progressTicking = true;
+            }
+        }, { passive: true });
 
         // 3. Sticky CTA - Hide when reaching contact section and footer
+        const stickyCTA = document.getElementById('sticky-cta');
+        const contactSection = document.getElementById('contact');
+        const footer = document.querySelector('footer');
+
         function updateStickyCTA() {
-            const stickyCTA = document.getElementById('sticky-cta');
-            const heroSection = document.getElementById('hero');
-            const contactSection = document.getElementById('contact');
-            const footer = document.querySelector('footer');
+            if (!stickyCTA) return;
 
             const heroBottom = heroSection ? heroSection.offsetTop + heroSection.offsetHeight : 0;
-            const contactTop = contactSection ? contactSection.offsetTop : document.body.scrollHeight;
-            const footerTop = footer ? footer.offsetTop : document.body.scrollHeight;
+            const contactTop = contactSection ? contactSection.offsetTop : cachedElements.body.scrollHeight;
+            const footerTop = footer ? footer.offsetTop : cachedElements.body.scrollHeight;
 
             // Get the earliest position where we should hide the button
             const hidePosition = Math.min(contactTop, footerTop) - 300;
@@ -3987,7 +4044,18 @@
                 stickyCTA.classList.remove('visible');
             }
         }
-        window.addEventListener('scroll', updateStickyCTA);
+
+        // Use requestAnimationFrame for smooth updates
+        let ctaTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!ctaTicking) {
+                requestAnimationFrame(() => {
+                    updateStickyCTA();
+                    ctaTicking = false;
+                });
+                ctaTicking = true;
+            }
+        }, { passive: true });
 
         // 4. Animated Counter for Statistics
         function animateCounter(element) {
@@ -4403,13 +4471,27 @@ www.d11architecture.lk
         });
 
         // 8. Parallax Effect for Hero
-        window.addEventListener('scroll', () => {
+        const heroSlider = document.getElementById('hero-slider');
+
+        function updateHeroParallax() {
+            if (!heroSlider) return;
             const scrolled = window.pageYOffset;
-            const heroSlider = document.getElementById('hero-slider');
-            if (heroSlider && scrolled < window.innerHeight) {
+            if (scrolled < window.innerHeight) {
                 heroSlider.style.transform = `translateY(${scrolled * 0.5}px)`;
             }
-        });
+        }
+
+        // Use requestAnimationFrame for smooth parallax
+        let parallaxTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!parallaxTicking) {
+                requestAnimationFrame(() => {
+                    updateHeroParallax();
+                    parallaxTicking = false;
+                });
+                parallaxTicking = true;
+            }
+        }, { passive: true });
 
         // 9. Lazy Loading for Images
         if ('IntersectionObserver' in window) {
@@ -4660,15 +4742,7 @@ www.d11architecture.lk
             });
         }
 
-        // 15. Scroll Progress Bar
-        window.addEventListener('scroll', () => {
-            const scrollProgress = document.getElementById('scroll-progress');
-            if (scrollProgress) {
-                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (window.scrollY / windowHeight) * 100;
-                scrollProgress.style.width = scrolled + '%';
-            }
-        });
+        // 15. Scroll Progress Bar - Already implemented above with optimizations
 
         // 16. Enhanced Scroll Reveal Animations
         const scrollRevealOptions = {
@@ -4817,9 +4891,51 @@ www.d11architecture.lk
 
     <!-- JavaScript for All New Features -->
     <script>
+        // ===== PERFORMANCE OPTIMIZATIONS =====
+
+        // Throttle function to limit execution rate
+        function throttle(func, wait) {
+            let timeout;
+            let lastRan;
+            return function executedFunction(...args) {
+                if (!lastRan) {
+                    func.apply(this, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        if ((Date.now() - lastRan) >= wait) {
+                            func.apply(this, args);
+                            lastRan = Date.now();
+                        }
+                    }, Math.max(wait - (Date.now() - lastRan), 0));
+                }
+            };
+        }
+
+        // Debounce function to delay execution
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Cache frequently accessed elements
+        const cachedElements = {
+            body: document.body,
+            html: document.documentElement,
+            bottomNavItems: null,
+            sections: null,
+            stickyCta: null,
+            offersBanner: null,
+            exitPopup: null
+        };
+
         // 27. Bottom Navigation - Active State
-        const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
-        const sections = document.querySelectorAll('section[id]');
+        cachedElements.bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+        cachedElements.sections = document.querySelectorAll('section[id]');
 
         // Only track sections that have corresponding nav items
         const navSections = ['hero', 'services', 'projects', 'contact'];
@@ -4829,7 +4945,7 @@ www.d11architecture.lk
             const scrollPosition = window.scrollY + 300; // Offset for better detection
             let foundSection = null;
 
-            sections.forEach(section => {
+            cachedElements.sections.forEach(section => {
                 const sectionId = section.getAttribute('id');
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
@@ -4849,7 +4965,7 @@ www.d11architecture.lk
                 lastActiveSection = foundSection;
             }
 
-            bottomNavItems.forEach(item => {
+            cachedElements.bottomNavItems.forEach(item => {
                 item.classList.remove('active');
                 if (item.getAttribute('data-nav') === lastActiveSection) {
                     item.classList.add('active');
@@ -4857,8 +4973,8 @@ www.d11architecture.lk
             });
         }
 
-        // Update on scroll
-        window.addEventListener('scroll', updateActiveNav);
+        // Update on scroll with throttling for performance
+        window.addEventListener('scroll', throttle(updateActiveNav, 100));
 
         // Update on page load and after a short delay (for layout settling)
         updateActiveNav();
@@ -4905,20 +5021,25 @@ www.d11architecture.lk
         });
 
         // 40. Sticky CTA Bar
-        const stickyCta = document.getElementById('stickyCta');
+        cachedElements.stickyCta = document.getElementById('stickyCta');
         let ctaShown = false;
 
-        window.addEventListener('scroll', () => {
-            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        function updateStickyCTABar() {
+            if (!cachedElements.stickyCta) return;
+            const scrollPercent = (window.scrollY / (cachedElements.html.scrollHeight - window.innerHeight)) * 100;
 
             if (scrollPercent > 25 && !ctaShown) {
-                stickyCta.classList.add('show');
+                cachedElements.stickyCta.classList.add('show');
+                cachedElements.body.classList.add('cta-bar-visible');
                 ctaShown = true;
             } else if (scrollPercent <= 25 && ctaShown) {
-                stickyCta.classList.remove('show');
+                cachedElements.stickyCta.classList.remove('show');
+                cachedElements.body.classList.remove('cta-bar-visible');
                 ctaShown = false;
             }
-        });
+        }
+
+        window.addEventListener('scroll', throttle(updateStickyCTABar, 100));
 
         // 44. Limited-Time Offers Banner with Countdown
         const offersBanner = document.getElementById('offersBanner');
