@@ -1686,6 +1686,107 @@
             --seasonal-accent: #dc2626; /* Red */
         }
 
+        /* Apply Seasonal Accents to Elements */
+        body[class*="theme-"] {
+            /* Section subheadings */
+            .section-subheading {
+                color: var(--seasonal-accent) !important;
+            }
+
+            /* Icon accents in features/services */
+            .feature-icon,
+            .service-icon {
+                color: var(--seasonal-accent) !important;
+            }
+
+            /* Badge accents */
+            .badge:not(.bg-c-gold),
+            .tag:not(.bg-c-gold) {
+                background: var(--seasonal-accent) !important;
+                color: white !important;
+            }
+
+            /* Link hover underlines */
+            a:not(.btn):not(.button):hover {
+                border-color: var(--seasonal-accent);
+            }
+
+            /* Stats counter accents */
+            .stat-value {
+                color: var(--seasonal-accent) !important;
+            }
+
+            /* List checkmarks and bullets */
+            ul li svg,
+            .checklist svg {
+                color: var(--seasonal-accent) !important;
+            }
+
+            /* FAQ question numbers */
+            .faq-item .text-c-gold:not(.section-subheading) {
+                background: var(--seasonal-accent) !important;
+                color: white !important;
+            }
+
+            /* Divider lines */
+            .section-divider {
+                background: linear-gradient(to right, transparent, var(--seasonal-accent), transparent) !important;
+                opacity: 0.3;
+            }
+
+            /* Form focus states */
+            input:focus,
+            textarea:focus,
+            select:focus {
+                border-color: var(--seasonal-accent) !important;
+            }
+
+            /* Scroll progress bar */
+            #scroll-progress {
+                background: linear-gradient(to right, #B28B47, var(--seasonal-accent)) !important;
+            }
+
+            /* Cursor trail */
+            .cursor-trail {
+                background: radial-gradient(circle, var(--seasonal-accent) 0%, transparent 70%) !important;
+            }
+
+            /* Active navigation items */
+            .nav-item.active,
+            .bottom-nav-item.active {
+                color: var(--seasonal-accent) !important;
+            }
+
+            /* Portfolio project tags - subtle accent */
+            .portfolio-item .badge {
+                background: var(--seasonal-accent) !important;
+                opacity: 0.9;
+            }
+
+            /* Testimonial quote marks */
+            blockquote::before,
+            .testimonial-quote::before {
+                color: var(--seasonal-accent) !important;
+            }
+
+            /* CTA buttons secondary */
+            .btn-secondary:hover {
+                background: var(--seasonal-accent) !important;
+            }
+
+            /* Card hover border glow */
+            .modern-card:hover {
+                box-shadow: 0 20px 60px rgba(var(--seasonal-accent-rgb), 0.15) !important;
+            }
+        }
+
+        /* Seasonal accent RGB values for transparency effects */
+        body.theme-spring { --seasonal-accent-rgb: 16, 185, 129; }
+        body.theme-summer { --seasonal-accent-rgb: 245, 158, 11; }
+        body.theme-autumn { --seasonal-accent-rgb: 249, 115, 22; }
+        body.theme-winter { --seasonal-accent-rgb: 59, 130, 246; }
+        body.theme-holiday { --seasonal-accent-rgb: 220, 38, 38; }
+
         /* 47. CURSOR TRAIL EFFECT */
         .cursor-trail {
             position: fixed;
@@ -4619,22 +4720,37 @@ www.d11architecture.lk
         const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
         const sections = document.querySelectorAll('section[id]');
 
+        // Only track sections that have corresponding nav items
+        const navSections = ['hero', 'services', 'projects', 'contact'];
+        let lastActiveSection = 'hero';
+
         function updateActiveNav() {
-            let current = 'hero'; // Default to hero
             const scrollPosition = window.scrollY + 300; // Offset for better detection
+            let foundSection = null;
 
             sections.forEach(section => {
+                const sectionId = section.getAttribute('id');
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
 
+                // Check if scroll position is within this section
                 if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
+                    // Only use this section if it's in our nav menu
+                    if (navSections.includes(sectionId)) {
+                        foundSection = sectionId;
+                    }
                 }
             });
 
+            // If we found a valid nav section, update it
+            // Otherwise, keep the last active section highlighted
+            if (foundSection) {
+                lastActiveSection = foundSection;
+            }
+
             bottomNavItems.forEach(item => {
                 item.classList.remove('active');
-                if (item.getAttribute('data-nav') === current) {
+                if (item.getAttribute('data-nav') === lastActiveSection) {
                     item.classList.add('active');
                 }
             });
