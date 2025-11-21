@@ -5454,26 +5454,30 @@ www.d11architecture.lk
                 const hasSeasonalContent = keywords.some(keyword => text.includes(keyword));
 
                 if (hasSeasonalContent && !testimonial.querySelector('.seasonal-badge')) {
-                    const badge = document.createElement('span');
+                    // Ensure testimonial has relative positioning
+                    testimonial.style.position = 'relative';
+
+                    const badge = document.createElement('div');
                     badge.className = 'seasonal-badge';
                     badge.textContent = '⭐ Seasonal Highlight';
                     badge.style.cssText = `
-                        display: inline-block;
+                        position: absolute;
+                        top: 12px;
+                        right: 12px;
                         background: var(--seasonal-accent);
                         color: white;
-                        padding: 4px 12px;
-                        border-radius: 12px;
+                        padding: 6px 12px;
+                        border-radius: 20px;
                         font-size: 11px;
                         font-weight: 600;
-                        margin-left: 8px;
-                        opacity: 0.9;
+                        opacity: 0.95;
+                        z-index: 10;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                        white-space: nowrap;
                     `;
-                    const header = testimonial.querySelector('h4, .testimonial-name, .font-bold');
-                    if (header) {
-                        header.style.display = 'inline-flex';
-                        header.style.alignItems = 'center';
-                        header.appendChild(badge);
-                    }
+
+                    // Insert badge at the beginning of testimonial
+                    testimonial.insertBefore(badge, testimonial.firstChild);
                 }
             });
         }
