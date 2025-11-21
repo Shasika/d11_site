@@ -571,7 +571,7 @@
         #scroll-button {
             display: none;
             position: fixed;
-            bottom: 32px;
+            bottom: 90px;
             right: 32px;
             z-index: 1000;
             width: 56px;
@@ -1016,7 +1016,7 @@
         /* 1. WHATSAPP FLOATING BUTTON */
         .whatsapp-float {
             position: fixed;
-            bottom: 110px;
+            bottom: 170px;
             right: 30px;
             z-index: 950;
             width: 60px;
@@ -1089,7 +1089,7 @@
             .whatsapp-float {
                 width: 56px;
                 height: 56px;
-                bottom: 100px;
+                bottom: 240px;
                 right: 20px;
             }
             .whatsapp-float svg {
@@ -1102,7 +1102,7 @@
             /* Align scroll button with WhatsApp button on mobile */
             #scroll-button {
                 right: 20px;
-                bottom: 20px;
+                bottom: 170px;
             }
         }
 
@@ -1487,6 +1487,287 @@
 
         .scroll-reveal-stagger {
             transition-delay: calc(var(--stagger-delay) * 0.1s);
+        }
+
+        /* ===== NEW UI/UX FEATURES ===== */
+
+        /* 27. BOTTOM NAVIGATION BAR (Mobile) */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border-color);
+            z-index: 999;
+            padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .bottom-nav {
+                display: block;
+            }
+            /* Add padding to body to prevent content hiding */
+            body {
+                padding-bottom: 70px;
+            }
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .bottom-nav-item.active {
+            color: #B28B47;
+            background: rgba(178, 139, 71, 0.1);
+        }
+
+        .bottom-nav-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .bottom-nav-item span {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* 39. EXIT INTENT POPUP */
+        .exit-popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .exit-popup.show {
+            display: flex;
+        }
+
+        .exit-popup-content {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 500px;
+            width: 90%;
+            padding: 40px;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 60px rgba(178, 139, 71, 0.3);
+        }
+
+        .exit-popup-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-default);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .exit-popup-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* 40. STICKY CTA BAR */
+        .sticky-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #B28B47 0%, #8B6914 100%);
+            padding: 16px 20px;
+            z-index: 1001;
+            box-shadow: 0 -4px 20px rgba(178, 139, 71, 0.4);
+            transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sticky-cta.show {
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-cta.show {
+                bottom: 70px; /* Above bottom nav */
+            }
+        }
+
+        /* 44. LIMITED-TIME OFFERS BANNER */
+        .offers-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 12px 20px;
+            z-index: 9998;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .offers-banner.show {
+            transform: translateY(0);
+        }
+
+        .offers-banner-close {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .countdown-timer {
+            display: inline-flex;
+            gap: 8px;
+            margin-left: 12px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+        }
+
+        /* 45. SEASONAL THEMES (Variables) */
+        body.theme-spring {
+            --seasonal-accent: #10b981; /* Green */
+        }
+
+        body.theme-summer {
+            --seasonal-accent: #f59e0b; /* Orange */
+        }
+
+        body.theme-autumn {
+            --seasonal-accent: #f97316; /* Amber */
+        }
+
+        body.theme-winter {
+            --seasonal-accent: #3b82f6; /* Blue */
+        }
+
+        body.theme-holiday {
+            --seasonal-accent: #dc2626; /* Red */
+        }
+
+        /* 47. CURSOR TRAIL EFFECT */
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #B28B47 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            animation: cursorTrailFade 0.8s ease-out forwards;
+        }
+
+        @keyframes cursorTrailFade {
+            0% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+            }
+        }
+
+        /* 48. ENHANCED SCROLL-TRIGGERED REVEALS */
+        .reveal-fade {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .reveal-fade.revealed {
+            opacity: 1;
+        }
+
+        .reveal-slide-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-slide-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-slide-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-slide-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-scale.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Animation utilities */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -4245,6 +4526,319 @@ www.d11architecture.lk
             <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.396 5.202 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.407 1.407-5.247-0.292-0.507c-1.224-2.153-1.857-4.578-1.857-7.003 0-7.51 6.11-13.62 13.62-13.62s13.62 6.11 13.62 13.62-6.11 13.62-13.62 13.62zM21.305 19.26c-0.346-0.174-2.049-1.007-2.366-1.123-0.316-0.117-0.547-0.174-0.776 0.174s-0.893 1.123-1.094 1.347c-0.201 0.231-0.402 0.26-0.748 0.087s-1.458-0.537-2.774-1.713c-1.025-0.916-1.717-2.048-1.918-2.394s-0.022-0.536 0.152-0.709c0.156-0.155 0.346-0.402 0.519-0.603s0.231-0.346 0.346-0.576c0.116-0.231 0.058-0.433-0.029-0.606s-0.776-1.87-1.063-2.565c-0.28-0.672-0.56-0.58-0.776-0.591-0.2-0.008-0.428-0.010-0.656-0.010s-0.603 0.087-0.92 0.433c-0.316 0.346-1.206 1.179-1.206 2.873s1.235 3.333 1.406 3.561c0.174 0.231 2.4 3.868 5.856 5.281 0.818 0.355 1.457 0.566 1.955 0.724 0.821 0.262 1.569 0.225 2.16 0.136 0.66-0.099 2.049-0.837 2.335-1.646 0.289-0.808 0.289-1.501 0.202-1.646s-0.316-0.231-0.662-0.405z"/>
         </svg>
     </a>
+
+    <!-- 27. Bottom Navigation Bar (Mobile) -->
+    <nav class="bottom-nav">
+        <div class="flex justify-around items-center max-w-md mx-auto">
+            <a href="#hero" class="bottom-nav-item active" data-nav="hero">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                <span>Home</span>
+            </a>
+            <a href="#services" class="bottom-nav-item" data-nav="services">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span>Services</span>
+            </a>
+            <a href="#projects" class="bottom-nav-item" data-nav="projects">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                <span>Projects</span>
+            </a>
+            <a href="#contact" class="bottom-nav-item" data-nav="contact">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span>Contact</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 39. Exit Intent Popup -->
+    <div class="exit-popup" id="exitPopup">
+        <div class="exit-popup-content">
+            <button class="exit-popup-close" onclick="closeExitPopup()">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M2 2l12 12M14 2L2 14"/></svg>
+            </button>
+            <div class="text-center">
+                <div class="text-5xl mb-4">🎁</div>
+                <h3 class="text-3xl font-elegant-serif font-bold text-text-default mb-3">Wait! Before You Go...</h3>
+                <p class="text-lg text-text-secondary mb-6">Get <strong class="text-c-gold">10% OFF</strong> your first project + FREE consultation worth Rs 25,000!</p>
+                <div class="bg-gradient-to-br from-c-gold/10 to-transparent p-6 rounded-xl mb-6">
+                    <p class="text-sm text-text-tertiary mb-4">Enter your email to receive:</p>
+                    <ul class="text-left space-y-2 text-sm text-text-secondary mb-4">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-c-gold mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span>10% discount code (valid 30 days)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-c-gold mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span>Free architectural planning guide (PDF)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-c-gold mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span>Priority booking for consultations</span>
+                        </li>
+                    </ul>
+                    <form onsubmit="handleExitPopupSubmit(event)" class="flex flex-col gap-3">
+                        <input type="email" placeholder="Enter your email" required class="px-4 py-3 rounded-lg bg-bg-card border-2 border-border-color focus:border-c-gold outline-none text-text-default">
+                        <button type="submit" class="px-6 py-3 font-bold text-white uppercase tracking-wider rounded-lg transition-all duration-300 hover:scale-105" style="background: var(--gradient-gold);">
+                            Claim My 10% Discount
+                        </button>
+                    </form>
+                </div>
+                <p class="text-xs text-text-tertiary">No spam, unsubscribe anytime. Offer expires in 24 hours.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 40. Sticky CTA Bar -->
+    <div class="sticky-cta" id="stickyCta">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex-1">
+                    <p class="text-white font-bold text-sm md:text-base">Ready to bring your vision to life?</p>
+                    <p class="text-white/80 text-xs hidden md:block">Get a free consultation & quote today</p>
+                </div>
+                <a href="#contact" class="px-6 py-3 bg-white text-c-dark font-bold text-sm uppercase tracking-wider rounded-lg hover:scale-105 transition-all duration-300 whitespace-nowrap">
+                    Get Free Quote
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 44. Limited-Time Offers Banner -->
+    <div class="offers-banner" id="offersBanner">
+        <div class="flex items-center justify-center gap-2 flex-wrap">
+            <span>🔥 Limited Offer: <strong>15% OFF</strong> on all new projects this month!</span>
+            <span class="countdown-timer" id="countdownTimer">
+                <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+            </span>
+        </div>
+        <button class="offers-banner-close" onclick="closeOffersBanner()">×</button>
+    </div>
+
+    <!-- JavaScript for All New Features -->
+    <script>
+        // 27. Bottom Navigation - Active State
+        const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveNav() {
+            let current = 'hero'; // Default to hero
+            const scrollPosition = window.scrollY + 300; // Offset for better detection
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            bottomNavItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-nav') === current) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Update on scroll
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Update on page load and after a short delay (for layout settling)
+        updateActiveNav();
+        setTimeout(updateActiveNav, 100);
+
+        // 39. Exit Intent Popup
+        let exitIntentShown = false;
+        const exitPopup = document.getElementById('exitPopup');
+
+        document.addEventListener('mouseout', (e) => {
+            if (!exitIntentShown && e.clientY <= 0 && window.innerWidth > 768) {
+                showExitPopup();
+            }
+        });
+
+        // Mobile: Show after 30 seconds
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                if (!exitIntentShown) showExitPopup();
+            }, 30000);
+        }
+
+        function showExitPopup() {
+            if (localStorage.getItem('exitPopupShown')) return;
+            exitIntentShown = true;
+            exitPopup.classList.add('show');
+            localStorage.setItem('exitPopupShown', 'true');
+        }
+
+        function closeExitPopup() {
+            exitPopup.classList.remove('show');
+        }
+
+        function handleExitPopupSubmit(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert('Thank you! Check your email for the 10% discount code.');
+            closeExitPopup();
+        }
+
+        // Close popup on background click
+        exitPopup.addEventListener('click', (e) => {
+            if (e.target === exitPopup) closeExitPopup();
+        });
+
+        // 40. Sticky CTA Bar
+        const stickyCta = document.getElementById('stickyCta');
+        let ctaShown = false;
+
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+
+            if (scrollPercent > 25 && !ctaShown) {
+                stickyCta.classList.add('show');
+                ctaShown = true;
+            } else if (scrollPercent <= 25 && ctaShown) {
+                stickyCta.classList.remove('show');
+                ctaShown = false;
+            }
+        });
+
+        // 44. Limited-Time Offers Banner with Countdown
+        const offersBanner = document.getElementById('offersBanner');
+
+        // Show banner after 5 seconds
+        setTimeout(() => {
+            if (!localStorage.getItem('offersBannerClosed')) {
+                offersBanner.classList.add('show');
+            }
+        }, 5000);
+
+        function closeOffersBanner() {
+            offersBanner.classList.remove('show');
+            localStorage.setItem('offersBannerClosed', 'true');
+        }
+
+        // Countdown Timer (24 hours from first visit)
+        function startCountdown() {
+            const endTime = localStorage.getItem('offerEndTime') ||
+                           (Date.now() + 24 * 60 * 60 * 1000);
+
+            if (!localStorage.getItem('offerEndTime')) {
+                localStorage.setItem('offerEndTime', endTime);
+            }
+
+            const timer = setInterval(() => {
+                const now = Date.now();
+                const distance = endTime - now;
+
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById('countdownTimer').innerHTML = 'EXPIRED';
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+
+        startCountdown();
+
+        // 45. Dark/Light Auto-Switch
+        function applyThemeByTime() {
+            const hour = new Date().getHours();
+            const isDark = hour >= 19 || hour < 7; // Dark mode 7 PM to 7 AM
+
+            const htmlElement = document.documentElement;
+            const savedTheme = localStorage.getItem('theme');
+
+            // Only auto-switch if user hasn't manually set theme
+            if (!savedTheme) {
+                if (isDark && !htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.add('dark');
+                    htmlElement.classList.remove('light');
+                } else if (!isDark && htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    htmlElement.classList.add('light');
+                }
+            }
+        }
+
+        // Apply on load and check every minute
+        applyThemeByTime();
+        setInterval(applyThemeByTime, 60000);
+
+        // 46. Seasonal Themes
+        function applySeasonalTheme() {
+            const month = new Date().getMonth() + 1; // 1-12
+            const day = new Date().getDate();
+            const body = document.body;
+
+            // Remove all theme classes first
+            body.classList.remove('theme-spring', 'theme-summer', 'theme-autumn', 'theme-winter', 'theme-holiday');
+
+            // Holiday themes (priority)
+            if (month === 12 && day >= 15) {
+                body.classList.add('theme-holiday'); // Christmas
+            } else if (month === 12 && day >= 31) {
+                body.classList.add('theme-holiday'); // New Year
+            }
+            // Seasonal themes
+            else if (month >= 3 && month <= 5) {
+                body.classList.add('theme-spring');
+            } else if (month >= 6 && month <= 8) {
+                body.classList.add('theme-summer');
+            } else if (month >= 9 && month <= 11) {
+                body.classList.add('theme-autumn');
+            } else {
+                body.classList.add('theme-winter');
+            }
+        }
+
+        applySeasonalTheme();
+
+        // 47. Cursor Trail Effect (Desktop only)
+        if (window.innerWidth >= 1024) {
+            let lastTrailTime = 0;
+            const trailDelay = 50; // ms between trails
+
+            document.addEventListener('mousemove', (e) => {
+                const now = Date.now();
+                if (now - lastTrailTime < trailDelay) return;
+                lastTrailTime = now;
+
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                document.body.appendChild(trail);
+
+                setTimeout(() => trail.remove(), 800);
+            });
+        }
+
+        // 48. Enhanced Scroll-Triggered Reveals
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe all reveal elements
+        document.querySelectorAll('.reveal-fade, .reveal-slide-left, .reveal-slide-right, .reveal-scale').forEach(el => {
+            revealObserver.observe(el);
+        });
+    </script>
 
 </body>
 </html>
