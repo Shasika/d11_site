@@ -571,7 +571,7 @@
         #scroll-button {
             display: none;
             position: fixed;
-            bottom: 90px;
+            bottom: 30px; /* Lowered from 90px for better positioning */
             right: 32px;
             z-index: 1000;
             width: 56px;
@@ -1016,7 +1016,7 @@
         /* 1. WHATSAPP FLOATING BUTTON */
         .whatsapp-float {
             position: fixed;
-            bottom: 170px;
+            bottom: 100px; /* Lowered from 170px for better positioning */
             right: 30px;
             z-index: 950;
             width: 60px;
@@ -1087,11 +1087,11 @@
 
         /* Move buttons up when sticky CTA is shown */
         body.cta-bar-visible .whatsapp-float {
-            bottom: 240px; /* 170px + 70px for bar height */
+            bottom: 170px; /* 100px + 70px for bar height */
         }
 
         body.cta-bar-visible #scroll-button {
-            bottom: 160px; /* 90px + 70px for bar height */
+            bottom: 100px; /* 30px + 70px for bar height */
         }
 
         /* Add transition to buttons for smooth movement */
@@ -1104,7 +1104,7 @@
             .whatsapp-float {
                 width: 56px;
                 height: 56px;
-                bottom: 240px;
+                bottom: 180px; /* Lowered from 240px, stays above bottom nav */
                 right: 20px;
             }
             .whatsapp-float svg {
@@ -1117,14 +1117,14 @@
             /* Align scroll button with WhatsApp button on mobile */
             #scroll-button {
                 right: 20px;
-                bottom: 170px;
+                bottom: 110px; /* Lowered from 170px, stays above bottom nav */
             }
             /* Move buttons up when sticky CTA is shown on mobile */
             body.cta-bar-visible .whatsapp-float {
-                bottom: 310px; /* 240px + 70px for bar height */
+                bottom: 250px; /* 180px + 70px for bar height */
             }
             body.cta-bar-visible #scroll-button {
-                bottom: 240px; /* 170px + 70px for bar height */
+                bottom: 180px; /* 110px + 70px for bar height */
             }
         }
 
