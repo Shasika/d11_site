@@ -1,0 +1,19 @@
+{
+  "name": "d11-architecture",
+  "version": "1.0.0",
+  "description": "D11 Architecture Website",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./dist/styles.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./dist/styles.css --watch",
+    "deploy": "npm run build:css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  }
+}

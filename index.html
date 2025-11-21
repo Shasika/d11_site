@@ -12,6 +12,13 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.d11architecture.lk">
 
+    <!-- Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.d11architecture.lk">
@@ -51,54 +58,8 @@
     }
     </script>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class', 
-            theme: {
-                extend: {
-                    colors: {
-                        'c-gold': '#B28B47',        // Rich Muted Gold (Accent)
-                        'c-dark': '#141414',        // Deep Charcoal (Dark Mode BG)
-                        'c-light': '#FFFFFF',       // Pure White (Light Mode BG)
-                        
-                        'bg-default': 'var(--bg-default)',     
-                        'text-default': 'var(--text-default)', 
-                        'text-secondary': 'var(--text-secondary)',
-                        'bg-card': 'var(--bg-card)',           
-                    },
-                    fontFamily: {
-                        'elegant-serif': ['Playfair Display', 'serif'], 
-                        'sans': ['Roboto', 'sans-serif'],
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(40px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        scaleIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.98)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        },
-                        blink: {
-                            '0%, 100%': { 'border-right-color': 'transparent' },
-                            '50%': { 'border-right-color': '#B28B47' }
-                        },
-                        spin: {
-                            '0%': { transform: 'rotate(0deg)' },
-                            '100%': { transform: 'rotate(360deg)' },
-                        }
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out',
-                        'scale-in': 'scaleIn 0.5s ease-out',
-                        'cursor-blink': 'blink 0.75s step-end infinite',
-                        'spin-slow': 'spin 1s linear infinite', 
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Optimized Tailwind CSS Build (25KB vs 3MB+ CDN) -->
+    <link rel="stylesheet" href="./dist/styles.css">
     <style>
         /* Modern CSS Custom Properties with Enhanced Color System */
         :root {
@@ -1025,13 +986,13 @@
 
     <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-br from-c-dark via-c-dark/98 to-c-dark">
-        <div class="text-center">
-            <div class="relative mb-8">
+        <div class="text-center flex flex-col items-center justify-center">
+            <div class="relative mb-8 flex items-center justify-center">
                 <div class="w-24 h-24 border-4 border-white/10 rounded-full"></div>
                 <div class="absolute top-0 left-0 w-24 h-24 border-4 border-transparent border-t-c-gold rounded-full animate-spin"></div>
             </div>
             <h2 class="text-4xl font-elegant-serif font-bold mb-4" style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                D11 <span class="text-white">.</span>
+                D11 Architecture
             </h2>
             <p class="text-white/60 text-sm uppercase tracking-widest animate-pulse">Loading Excellence</p>
         </div>
@@ -1047,9 +1008,9 @@
     </a>
 
     <header id="main-header" class="sticky top-0 z-50 transition-all duration-500">
-        <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
-            <a href="#hero" class="text-3xl font-bold tracking-widest text-text-default transition-all duration-300 hover:scale-105" style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                D11 <span class="font-elegant-serif">.</span>
+        <nav class="container mx-auto px-4 sm:px-8 py-3 md:py-4 flex justify-between items-center">
+            <a href="#hero" class="text-xl sm:text-2xl font-bold tracking-widest text-text-default transition-all duration-300 hover:scale-105" style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                D11 Architecture
             </a>
             <div class="flex items-center space-x-10">
                 <div class="hidden xl:flex space-x-8 text-sm font-semibold uppercase tracking-wider">
@@ -1082,7 +1043,7 @@
         <div class="mobile-menu-header">
             <div>
                 <h3 class="text-xl font-bold" style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                    D11<span class="font-elegant-serif">.</span>
+                    D11 Architecture
                 </h3>
                 <p class="text-xs text-text-tertiary mt-1">Menu</p>
             </div>
@@ -1219,9 +1180,10 @@
                     </div>
                     
                     <div class="relative h-[40vh] rounded-none overflow-hidden shadow-2xl mt-12 img-container animate-scale-up animate-on-scroll delay-[200ms]">
-                        <img class="w-full h-full object-cover img-zoom" 
-                             src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&h=1080&fit=crop" 
-                             alt="Team portrait or office view">
+                        <img class="w-full h-full object-cover img-zoom"
+                             src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&h=800&fit=crop"
+                             alt="Team portrait or office view"
+                             loading="lazy">
                     </div>
                 </div>
                 
@@ -1371,14 +1333,15 @@
                         <div class="relative inline-block mb-6">
                             <div class="img-container w-40 h-40 mx-auto rounded-full overflow-hidden shadow-xl ring-4 ring-offset-4 ring-offset-bg-default ring-transparent group-hover:ring-c-gold/30 transition-all duration-500">
                                 <img class="w-full h-full object-cover img-zoom"
-                                     src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop"
-                                     alt="Founder Profile">
+                                     src="https://images.shasikam.com/yadeesha.jpg"
+                                     alt="Founder Profile"
+                                     loading="lazy">
                             </div>
                             <div class="absolute -bottom-2 -right-2 w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style="background: var(--gradient-gold);">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-elegant-serif font-bold text-text-default mb-2">Alexander V.</h3>
+                        <h3 class="text-2xl font-elegant-serif font-bold text-text-default mb-2">Yadeesha J.</h3>
                         <p class="font-semibold uppercase text-xs tracking-widest mb-3" style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Lead Draftsman & Founder</p>
                         <p class="text-text-secondary leading-relaxed text-sm">15+ years experience in residential and commercial CAD drafting, specializing in complex building plans.</p>
                     </div>
@@ -1386,14 +1349,15 @@
                         <div class="relative inline-block mb-6">
                             <div class="img-container w-40 h-40 mx-auto rounded-full overflow-hidden shadow-xl ring-4 ring-offset-4 ring-offset-bg-default ring-transparent group-hover:ring-c-gold/30 transition-all duration-500">
                                 <img class="w-full h-full object-cover img-zoom"
-                                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop"
-                                     alt="Design Director Profile">
+                                     src="https://images.shasikam.com/madhusha.jpg"
+                                     alt="Design Director Profile"
+                                     loading="lazy">
                             </div>
                             <div class="absolute -bottom-2 -right-2 w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style="background: var(--gradient-gold);">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-elegant-serif font-bold text-text-default mb-2">Sofia N.</h3>
+                        <h3 class="text-2xl font-elegant-serif font-bold text-text-default mb-2">Madhusha H.</h3>
                         <p class="font-semibold uppercase text-xs tracking-widest mb-3" style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">CAD Specialist & Designer</p>
                         <p class="text-text-secondary leading-relaxed text-sm">Expert in interior layouts, 3D modeling, and creating detailed architectural renderings for clients.</p>
                     </div>
@@ -1401,14 +1365,15 @@
                         <div class="relative inline-block mb-6">
                             <div class="img-container w-40 h-40 mx-auto rounded-full overflow-hidden shadow-xl ring-4 ring-offset-4 ring-offset-bg-default ring-transparent group-hover:ring-c-gold/30 transition-all duration-500">
                                 <img class="w-full h-full object-cover img-zoom"
-                                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=800&fit=crop"
+                                     src="https://images.shasikam.com/shasika.jpg"
+                                     loading="lazy"
                                      alt="Project Manager Profile">
                             </div>
                             <div class="absolute -bottom-2 -right-2 w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style="background: var(--gradient-gold);">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-elegant-serif font-bold text-text-default mb-2">Omar E.</h3>
+                        <h3 class="text-2xl font-elegant-serif font-bold text-text-default mb-2">Shasika M..</h3>
                         <p class="font-semibold uppercase text-xs tracking-widest mb-3" style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Technical Drafter & Coordinator</p>
                         <p class="text-text-secondary leading-relaxed text-sm">Specializes in construction documents, permit drawings, and ensuring code compliance for all projects.</p>
                     </div>
@@ -1638,7 +1603,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="residential">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop" alt="The Manhattan Penthouse">
+                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop" alt="The Manhattan Penthouse">
                             </div>
                             <!-- Project Value Badge -->
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
@@ -1668,7 +1633,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="residential">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop" alt="VILLA S. M. - Primary Suite">
+                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop" alt="VILLA S. M. - Primary Suite">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 190,000</span>
@@ -1696,7 +1661,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="commercial">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop" alt="Commercial Gallery Revamp">
+                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop" alt="Commercial Gallery Revamp">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 420,000</span>
@@ -1724,7 +1689,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="residential">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&h=1080&fit=crop" alt="Hampton's Beach House">
+                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop" alt="Hampton's Beach House">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 280,000</span>
@@ -1752,7 +1717,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="residential">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt="Downtown Loft Kitchen">
+                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt="Downtown Loft Kitchen">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 150,000</span>
@@ -1780,7 +1745,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="commercial">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop" alt="Corporate HQ Lobby">
+                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop" alt="Corporate HQ Lobby">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 360,000</span>
@@ -1808,7 +1773,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="renovations">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&h=600&fit=crop" alt="Historic Home Renovation">
+                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&h=600&fit=crop" alt="Historic Home Renovation">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 220,000</span>
@@ -1836,7 +1801,7 @@
                     <article class="portfolio-item modern-card group block overflow-hidden transition-all duration-500" data-category="renovations">
                         <div class="relative">
                             <div class="img-container w-full h-[350px] rounded-t-xl overflow-hidden">
-                                <img class="w-full h-full object-cover img-zoom" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop" alt="Basement Conversion">
+                                <img class="w-full h-full object-cover img-zoom" loading="lazy" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop" alt="Basement Conversion">
                             </div>
                             <div class="absolute top-4 right-4 backdrop-blur-md bg-black/50 px-3 py-1 rounded-full">
                                 <span class="text-white text-xs font-bold">Rs 170,000</span>
@@ -2348,7 +2313,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div>
                     <h4 class="text-4xl font-bold mb-6 tracking-widest" style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                        D11 <span class="font-elegant-serif">.</span>
+                        D11 Architecture
                     </h4>
                     <p class="text-gray-300 leading-relaxed mb-6 text-sm">Excellence in bespoke interior and architectural design, delivered globally.</p>
                     <div class="flex gap-4 mb-6">
@@ -2432,44 +2397,51 @@
 
     <script>
         // --- 1. Swiper Initialization for Carousels ---
-        
+
         // --- PORTFOLIO SWIPER (Multi-Row/Multi-Item) ---
-        const swiperProjects = new Swiper('.swiper-projects', {
-            loop: true,
-            speed: 800,
-            autoplay: {
-                delay: 4000, 
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination-projects',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next-projects',
-                prevEl: '.swiper-button-prev-projects',
-            },
-            // Responsive settings using breakpoints
-            breakpoints: {
-                // Mobile (0px and up): 1 column (2 projects vertically stacked)
-                0: {
-                    slidesPerView: 1, 
-                    slidesPerColumn: 1, 
-                    spaceBetween: 30,
-                    autoHeight: true, 
+        let swiperProjects = null;
+        const swiperProjectsEl = document.querySelector('.swiper-projects');
+        if (swiperProjectsEl) {
+            swiperProjects = new Swiper('.swiper-projects', {
+                loop: true,
+                speed: 800,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
                 },
-                // Tablet/Desktop (768px and up): 2 columns (Multi-row look)
-                768: {
-                    slidesPerView: 1, 
-                    slidesPerColumn: 2, 
-                    spaceBetween: 30,
-                    autoHeight: true,
+                pagination: {
+                    el: '.swiper-pagination-projects',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next-projects',
+                    prevEl: '.swiper-button-prev-projects',
+                },
+                // Responsive settings using breakpoints
+                breakpoints: {
+                    // Mobile (0px and up): 1 column (2 projects vertically stacked)
+                    0: {
+                        slidesPerView: 1,
+                        slidesPerColumn: 1,
+                        spaceBetween: 30,
+                        autoHeight: true,
+                    },
+                    // Tablet/Desktop (768px and up): 2 columns (Multi-row look)
+                    768: {
+                        slidesPerView: 1,
+                        slidesPerColumn: 2,
+                        spaceBetween: 30,
+                        autoHeight: true,
+                    }
                 }
-            }
-        });
+            });
+        }
 
         // --- TESTIMONIALS SWIPER (Single Item with UX Fix: 10s delay) ---
-        const swiperTestimonials = new Swiper('.swiper-testimonials', {
+        let swiperTestimonials = null;
+        const swiperTestimonialsEl = document.querySelector('.swiper-testimonials');
+        if (swiperTestimonialsEl) {
+            swiperTestimonials = new Swiper('.swiper-testimonials', {
             loop: true,
             speed: 600,
             autoplay: {
@@ -2488,12 +2460,13 @@
             slidesPerView: 1,
             spaceBetween: 30,
             autoHeight: true, // Crucial for varying testimonial heights
-        });
+            });
+        }
 
         // Explicitly ensure Swiper recalculates the height after all elements render
         setTimeout(() => {
-            swiperProjects.updateAutoHeight();
-            swiperTestimonials.updateAutoHeight();
+            if (swiperProjects) swiperProjects.updateAutoHeight();
+            if (swiperTestimonials) swiperTestimonials.updateAutoHeight();
         }, 500);
 
         // --- 1.5. Hero Parallax Effect ---
@@ -3048,17 +3021,87 @@
                 submitBtn.disabled = true;
 
                 try {
-                    // Simulate API call
-                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    // Collect form data
+                    const formData = {
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        phone: document.getElementById('phone').value.trim(),
+                        projectType: projectType.value,
+                        budget: document.getElementById('budget').value,
+                        message: messageInput.value.trim(),
+                        timestamp: new Date().toISOString(),
+                        files: uploadedFiles.map(f => f.name)
+                    };
 
-                    showToast('Message sent successfully! We\'ll contact you within 24 hours.', 'success');
-                    contactForm.reset();
-                    localStorage.removeItem('d11-contact-form');
-                    uploadedFiles = [];
-                    if (fileList) fileList.innerHTML = '';
-                    if (charCount) charCount.textContent = '0 / 1000';
+                    // Try Netlify Function first (if available), fallback to Web3Forms
+                    let response;
+
+                    // Option 1: Netlify Functions (when deployed to Netlify)
+                    try {
+                        response = await fetch('/.netlify/functions/contact', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(formData)
+                        });
+
+                        if (!response.ok) throw new Error('Netlify function not available');
+                    } catch (netlifyError) {
+                        // Option 2: Web3Forms (fallback - works everywhere)
+                        const web3FormData = new FormData();
+                        web3FormData.append('access_key', 'YOUR_WEB3FORMS_KEY'); // Get from web3forms.com
+                        web3FormData.append('name', formData.name);
+                        web3FormData.append('email', formData.email);
+                        web3FormData.append('phone', formData.phone);
+                        web3FormData.append('subject', `New ${formData.projectType} Project Inquiry`);
+                        web3FormData.append('message', `
+Project Type: ${formData.projectType}
+Budget: ${formData.budget}
+Phone: ${formData.phone}
+
+Message:
+${formData.message}
+
+Files: ${formData.files.join(', ') || 'None'}
+                        `);
+
+                        // Add uploaded files
+                        const fileInput = document.getElementById('file-upload');
+                        if (fileInput.files.length > 0) {
+                            for (let i = 0; i < fileInput.files.length; i++) {
+                                web3FormData.append('file', fileInput.files[i]);
+                            }
+                        }
+
+                        response = await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            body: web3FormData
+                        });
+                    }
+
+                    const result = await response.json();
+
+                    if (response.ok || result.success) {
+                        showToast('Message sent successfully! We\'ll contact you within 24 hours.', 'success');
+
+                        // Track conversion (if analytics setup)
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'form_submission', {
+                                'event_category': 'Contact',
+                                'event_label': formData.projectType
+                            });
+                        }
+
+                        contactForm.reset();
+                        localStorage.removeItem('d11-contact-form');
+                        uploadedFiles = [];
+                        if (fileList) fileList.innerHTML = '';
+                        if (charCount) charCount.textContent = '0 / 1000';
+                    } else {
+                        throw new Error(result.message || 'Submission failed');
+                    }
                 } catch (error) {
-                    showToast('Failed to send message. Please try again.', 'error');
+                    console.error('Form submission error:', error);
+                    showToast('Failed to send message. Please try again or contact us directly.', 'error');
                 } finally {
                     submitText.textContent = 'Send Inquiry';
                     submitLoader.classList.add('hidden');
@@ -3302,8 +3345,6 @@
                 }, 300);
             }
         });
-
-        console.log('%c🎨 D11 Architecture - Premium Design System Loaded', 'color: #B28B47; font-size: 16px; font-weight: bold;');
     </script>
 </body>
 </html>
