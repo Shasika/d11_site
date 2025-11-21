@@ -880,6 +880,31 @@
             font-weight: bold;
         }
 
+        /* Featured Logos Swiper Styling */
+        .swiper-featured {
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .swiper-featured .swiper-pagination {
+            bottom: 0 !important;
+        }
+
+        .swiper-featured .swiper-pagination-bullet {
+            width: 8px;
+            height: 8px;
+            background: var(--text-tertiary);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-featured .swiper-pagination-bullet-active {
+            background: #B28B47;
+            opacity: 1;
+            width: 24px;
+            border-radius: 4px;
+        }
+
         /* Mobile, Tablet & Small Laptops: Hide arrows completely */
         @media (max-width: 1280px) {
             .swiper-testimonials .swiper-button-prev,
@@ -1292,28 +1317,71 @@
                 </div>
 
                 <!-- Featured In Press -->
-                <div class="text-center mb-12 animate-on-scroll animate-fade-up">
+                <div class="text-center mb-8 md:mb-12 animate-on-scroll animate-fade-up">
                     <p class="section-subheading">AS FEATURED IN</p>
                 </div>
-                <div class="relative">
-                    <div class="client-logos-marquee flex gap-16 items-center">
-                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-                            <div class="text-2xl md:text-3xl font-bold text-text-default">VOGUE</div>
+
+                <!-- Mobile: Carousel | Desktop: Flex center -->
+                <div class="relative overflow-hidden">
+                    <!-- Mobile Carousel (< md) -->
+                    <div class="md:hidden">
+                        <div class="swiper swiper-featured">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center py-8">
+                                        <div class="text-2xl font-bold text-text-default">VOGUE</div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center py-8">
+                                        <div class="text-2xl font-bold text-text-default">FORBES</div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center py-8">
+                                        <div class="text-xl font-bold text-text-default">ARCHITECTURAL DIGEST</div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center py-8">
+                                        <div class="text-2xl font-bold text-text-default">ELLE DECOR</div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center py-8">
+                                        <div class="text-2xl font-bold text-text-default">WALLPAPER</div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center py-8">
+                                        <div class="text-2xl font-bold text-text-default">DEZEEN</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pagination dots -->
+                            <div class="swiper-pagination swiper-pagination-featured"></div>
                         </div>
-                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-                            <div class="text-2xl md:text-3xl font-bold text-text-default">FORBES</div>
+                    </div>
+
+                    <!-- Desktop: Flex layout (>= md) -->
+                    <div class="hidden md:flex md:flex-wrap md:justify-center gap-12 lg:gap-16 items-center">
+                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-bold text-text-default">VOGUE</div>
                         </div>
-                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-                            <div class="text-xl md:text-2xl font-bold text-text-default">ARCHITECTURAL DIGEST</div>
+                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-bold text-text-default">FORBES</div>
                         </div>
-                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-                            <div class="text-2xl md:text-3xl font-bold text-text-default">ELLE DECOR</div>
+                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center">
+                            <div class="text-xl lg:text-2xl font-bold text-text-default">ARCHITECTURAL DIGEST</div>
                         </div>
-                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-                            <div class="text-2xl md:text-3xl font-bold text-text-default">WALLPAPER</div>
+                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-bold text-text-default">ELLE DECOR</div>
                         </div>
-                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-                            <div class="text-2xl md:text-3xl font-bold text-text-default">DEZEEN</div>
+                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-bold text-text-default">WALLPAPER</div>
+                        </div>
+                        <div class="client-logo grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-bold text-text-default">DEZEEN</div>
                         </div>
                     </div>
                 </div>
@@ -2211,8 +2279,9 @@
                         <div class="relative">
                             <label for="project-type" class="block text-sm font-semibold text-text-default mb-2 uppercase tracking-wider">Project Type *</label>
                             <select id="project-type" name="project-type" required
-                                    class="w-full px-5 py-4 bg-bg-default border-2 border-border-color rounded-lg text-text-default transition-all duration-300 focus:border-c-gold focus:outline-none cursor-pointer"
-                                    data-auto-save="project-type">
+                                    class="w-full pl-5 pr-12 py-4 bg-bg-default border-2 border-border-color rounded-lg text-text-default transition-all duration-300 focus:border-c-gold focus:outline-none cursor-pointer appearance-none"
+                                    data-auto-save="project-type"
+                                    style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23B28B47%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.25rem;">
                                 <option value="">Select Project Type</option>
                                 <option value="residential">Residential Interior</option>
                                 <option value="commercial">Commercial Space</option>
@@ -2224,8 +2293,9 @@
                         <div class="relative">
                             <label for="budget" class="block text-sm font-semibold text-text-default mb-2 uppercase tracking-wider">Budget Range</label>
                             <select id="budget" name="budget"
-                                    class="w-full px-5 py-4 bg-bg-default border-2 border-border-color rounded-lg text-text-default transition-all duration-300 focus:border-c-gold focus:outline-none cursor-pointer"
-                                    data-auto-save="budget">
+                                    class="w-full pl-5 pr-12 py-4 bg-bg-default border-2 border-border-color rounded-lg text-text-default transition-all duration-300 focus:border-c-gold focus:outline-none cursor-pointer appearance-none"
+                                    data-auto-save="budget"
+                                    style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23B28B47%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.25rem;">
                                 <option value="">Select Budget Range</option>
                                 <option value="under-100k">Under Rs 100,000</option>
                                 <option value="100k-250k">Rs 100,000 - Rs 250,000</option>
@@ -2464,6 +2534,31 @@
             slidesPerView: 1,
             spaceBetween: 30,
             autoHeight: true, // Crucial for varying testimonial heights
+            });
+        }
+
+        // --- FEATURED LOGOS SWIPER (Mobile only - auto-play carousel) ---
+        let swiperFeatured = null;
+        const swiperFeaturedEl = document.querySelector('.swiper-featured');
+        if (swiperFeaturedEl) {
+            swiperFeatured = new Swiper('.swiper-featured', {
+                loop: true,
+                speed: 600,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination-featured',
+                    clickable: true,
+                },
+                slidesPerView: 1,
+                spaceBetween: 0,
+                centeredSlides: true,
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                }
             });
         }
 
