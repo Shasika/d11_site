@@ -1353,25 +1353,114 @@
             font-size: 20px;
         }
 
-        /* Mobile table improvements */
+        /* Mobile Comparison Cards */
+        .comparison-cards {
+            display: none;
+        }
+
+        .comparison-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card.highlight {
+            border-color: #B28B47;
+            box-shadow: 0 8px 32px rgba(178, 139, 71, 0.3);
+        }
+
+        .comparison-card-header {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 16px;
+        }
+
+        .comparison-card-header.diy {
+            background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+            color: white;
+        }
+
+        .comparison-card-header.pro {
+            background: linear-gradient(135deg, #F4D03F 0%, #D4AF37 50%, #B28B47 100%);
+            color: white;
+        }
+
+        .comparison-feature {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-feature:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-feature-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-default);
+            flex: 1;
+        }
+
+        .comparison-feature-value {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .comparison-feature-icon {
+            font-size: 20px;
+        }
+
+        .comparison-feature-text {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .comparison-card.highlight .comparison-feature-text {
+            color: #B28B47;
+            font-weight: 600;
+        }
+
+        .comparison-total {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .comparison-total.diy {
+            background: rgba(107, 114, 128, 0.1);
+            color: var(--text-tertiary);
+        }
+
+        .comparison-total.pro {
+            background: rgba(178, 139, 71, 0.1);
+            color: #B28B47;
+        }
+
+        /* Hide table on mobile, show cards */
         @media (max-width: 768px) {
-            .comparison-table {
-                min-width: 550px;
-                font-size: 14px;
+            .comparison-table-wrapper {
+                display: none;
             }
 
-            .comparison-table thead th {
-                padding: 16px 12px;
-                font-size: 12px;
-            }
-
-            .comparison-table tbody td {
-                padding: 12px 10px;
-            }
-
-            .comparison-table .check-icon,
-            .comparison-table .cross-icon {
-                font-size: 16px;
+            .comparison-cards {
+                display: block;
             }
         }
 
@@ -2660,8 +2749,8 @@
                     </div>
                 </div>
 
-                <!-- Comparison Table -->
-                <div class="overflow-x-auto animate-on-scroll animate-fade-up delay-[400ms] -mx-4 px-4 sm:mx-0 sm:px-0">
+                <!-- Comparison Table (Desktop) -->
+                <div class="comparison-table-wrapper overflow-x-auto animate-on-scroll animate-fade-up delay-[400ms] -mx-4 px-4 sm:mx-0 sm:px-0">
                     <div class="inline-block min-w-full align-middle">
                         <table class="comparison-table w-full">
                             <thead>
@@ -2762,6 +2851,137 @@
                             </tr>
                         </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- Comparison Cards (Mobile) -->
+                <div class="comparison-cards animate-on-scroll animate-fade-up delay-[400ms]">
+                    <!-- DIY / Amateur Card -->
+                    <div class="comparison-card">
+                        <div class="comparison-card-header diy">DIY / Amateur</div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Code Compliance</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">❌</span>
+                                <span class="comparison-feature-text">Maybe / Uncertain</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Revisions</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">❌</span>
+                                <span class="comparison-feature-text">Limited or None</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Permit Approval</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">❌</span>
+                                <span class="comparison-feature-text">High Rejection Rate</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Professional CAD Quality</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">❌</span>
+                                <span class="comparison-feature-text">Basic / Sketches</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Structural Calculations</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">❌</span>
+                                <span class="comparison-feature-text">Not Included</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Ongoing Support</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">❌</span>
+                                <span class="comparison-feature-text">None After Delivery</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Turnaround Time</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">❌</span>
+                                <span class="comparison-feature-text">Weeks to Months</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-total diy">Risky</div>
+                    </div>
+
+                    <!-- D11 Architecture Card -->
+                    <div class="comparison-card highlight">
+                        <div class="comparison-card-header pro">
+                            <span class="drop-shadow-sm">D11 Architecture</span>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Code Compliance</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">✅</span>
+                                <span class="comparison-feature-text">100% Guaranteed</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Revisions</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">✅</span>
+                                <span class="comparison-feature-text">Unlimited Until Perfect</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Permit Approval</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">✅</span>
+                                <span class="comparison-feature-text">First-Time Pass Rate</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Professional CAD Quality</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">✅</span>
+                                <span class="comparison-feature-text">Industry Standard</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Structural Calculations</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">✅</span>
+                                <span class="comparison-feature-text">Included in Plans</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Ongoing Support</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">✅</span>
+                                <span class="comparison-feature-text">Throughout Construction</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-feature">
+                            <div class="comparison-feature-label">Turnaround Time</div>
+                            <div class="comparison-feature-value">
+                                <span class="comparison-feature-icon">✅</span>
+                                <span class="comparison-feature-text">1-2 Weeks Guaranteed</span>
+                            </div>
+                        </div>
+
+                        <div class="comparison-total pro">Peace of Mind</div>
                     </div>
                 </div>
 
